@@ -3,9 +3,9 @@
 	"displayName": "Git Copy Files Paths",
 	"description": "Automatically copies the paths for all the modified/new files in the current working directory.",
 	"version": "0.0.1",
-	"publisher": "fravitto00",
+	"publisher": "OrmaDEPT",
 	"author": {
-		"name": "Honolulu"
+		"name": "Orma DEPT."
 	},
 	"license": "MIT",
 	"homepage": "https://github.com/fravitto00/git-files-paths/blob/main/README.md",
