@@ -2,7 +2,7 @@
 	"name": "git-files-paths",
 	"displayName": "Git Copy Files Paths",
 	"description": "Automatically copies the paths for all the modified/new files in the current working directory.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "OrmaDEPT",
 	"author": {
 		"name": "Orma DEPT."
