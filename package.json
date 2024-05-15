@@ -36,8 +36,7 @@
 	"main": "./out/extension.js",
 	"contributes": {
 		"configuration": {
-			"type": "object",
-			"title": "Git Copy Files Paths",
+			"title": "GitPaths",
 			"properties": {
 				"gitPaths.includeNonStagedChanges": {
 					"type": "boolean",
