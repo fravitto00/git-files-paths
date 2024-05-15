@@ -39,31 +39,6 @@
 			"type": "object",
 			"title": "Git Files Paths",
 			"properties": {
-				"git-files-paths.pattern": {
-					"type": "string",
-					"default": "(.*)",
-					"description": "A regular expression to extract from branch name. Should match entire branch."
-				},
-				"git-files-paths.patternIgnoreCase": {
-					"type": "boolean",
-					"default": false,
-					"description": "Ignore case in pattern."
-				},
-				"git-files-paths.replacementIsFunction": {
-					"type": "boolean",
-					"default": false,
-					"description": "Replacement string is a function return expression with parameters (p1, p2, p3...) matching patterns."
-				},
-				"git-files-paths.replacement": {
-					"type": "string",
-					"default": "[$1] ",
-					"description": "Content to place in commit message."
-				},
-				"git-files-paths.isSuffix": {
-					"type": "boolean",
-					"default": false,
-					"description": "Suffix the pattern instead of prefix"
-				}
 			}
 		},
 		"commands": [
