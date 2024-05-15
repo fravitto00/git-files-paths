@@ -1,13 +1,13 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { GitExtension, Repository } from './api/git'
+import { GitExtension, Repository, Change } from './api/git'
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
 export function activate (context: vscode.ExtensionContext) {
-  const disposable = vscode.commands.registerCommand('git-files-paths.copyPaths', async (uri?) => {
+  const disposable = vscode.commands.registerCommand('gitPaths.copyPaths', async (uri?) => {
     const git = getGitExtension()
 
     if (!git) {
@@ -43,19 +43,38 @@ export function activate (context: vscode.ExtensionContext) {
 }
 
 async function buildPaths (repository: Repository) {
-	const changes = await repository.diffWithHEAD()
-	// Also get staged changes
-	const stagedChanges = await repository.diffIndexWithHEAD()
-	// Combine changes and staged changes
-	changes.push(...stagedChanges)
+	const { includeNonStagedChanges, includeStagedChanges, removeRepoRootPath, removeLeadingSlash, removeDuplicates } = vscode.workspace.getConfiguration('gitPaths')
+	let changes: Change[] = []
+
+	// Get non staged changes
+	if (includeNonStagedChanges || !includeNonStagedChanges && !includeStagedChanges) {
+		changes = await repository.diffWithHEAD()
+	}
+
+	// Get staged changes
+	if (includeStagedChanges || !includeNonStagedChanges && !includeStagedChanges) {
+		const stagedChanges = await repository.diffIndexWithHEAD()
+		// Combine changes (or empty array) and staged changes
+		changes.push(...stagedChanges)
+	}
+
 	// Get paths
-	const paths = changes.map(change => change.uri.path)
+	let paths = changes.map(change => change.uri.path)
+
 	// Remove repo root path
-	.map(path => path.replace(repository.rootUri.path, ''))
+	if (removeRepoRootPath) {
+		paths = paths.map(path => path.replace(repository.rootUri.path, ''))
+	}
+
 	// Remove leading slash
-	.map(path => path.replace(/^\//, ''))
+	if (removeLeadingSlash) {
+		paths = paths.map(path => path.replace(/^\//, ''))
+	}
+
 	// Remove duplicate paths
-	.filter((path, index, self) => self.indexOf(path) === index)
+	if (removeDuplicates) {
+		paths = paths.filter((path, index, self) => self.indexOf(path) === index)
+	}
 
 	return paths
 }

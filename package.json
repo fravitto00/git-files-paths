@@ -1,24 +1,24 @@
 {
-  "name": "git-files-paths",
-  "displayName": "Git Files Paths",
-  "description": "Automatically copies the relative paths for all the modified/new files in the current working directory.",
-  "version": "0.0.1",
+	"name": "git-files-paths",
+	"displayName": "Git Copy Files Paths",
+	"description": "Automatically copies the paths for all the modified/new files in the current working directory.",
+	"version": "0.0.1",
 	"publisher": "fravitto00",
-  "author": {
+	"author": {
 		"name": "Honolulu"
 	},
 	"license": "MIT",
-	"homepage": "https://github.com/srmeyers/git-prefix/blob/master/README.md",
+	"homepage": "https://github.com/fravitto00/git-files-paths/blob/main/README.md",
 	"bugs": {
-		"url": "https://github.com/srmeyers/git-prefix/issues"
+		"url": "https://github.com/fravitto00/git-files-paths/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/srmeyers/git-prefix.git"
+		"url": "https://github.com/fravitto00/git-files-paths.git"
 	},
-  "engines": {
-    "vscode": "^1.89.0"
-  },
+	"engines": {
+		"vscode": "^1.89.0"
+	},
 	"categories": [
 		"Other"
 	],
@@ -37,14 +37,39 @@
 	"contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "Git Files Paths",
+			"title": "Git Copy Files Paths",
 			"properties": {
+				"gitPaths.includeNonStagedChanges": {
+					"type": "boolean",
+					"default": true,
+					"description": "Include staged changes."
+				},
+				"gitPaths.includeStagedChanges": {
+					"type": "boolean",
+					"default": true,
+					"description": "Include non staged changes."
+				},
+				"gitPaths.removeRepoRootPath": {
+					"type": "boolean",
+					"default": true,
+					"description": "Remove the repository root path from the file path. This will lead to relative paths."
+				},
+				"gitPaths.removeLeadingSlash": {
+					"type": "boolean",
+					"default": true,
+					"description": "Remove the leading slash from the file path."
+				},
+				"gitPaths.removeDuplicates": {
+					"type": "boolean",
+					"default": true,
+					"description": "Remove duplicate paths."
+				}
 			}
 		},
 		"commands": [
 			{
-				"command": "git-files-paths.copyPaths",
-				"title": "Copy Git Files Paths",
+				"command": "gitPaths.copyPaths",
+				"title": "Git Copy Files Paths",
 				"icon": {
 					"dark": "images/icon.svg",
 					"light": "images/icon_light.svg"
@@ -54,30 +79,30 @@
 		"menus": {
 			"scm/title": [
 				{
-					"command": "git-files-paths.copyPaths",
+					"command": "gitPaths.copyPaths",
 					"when": "scmProvider == git",
 					"group": "navigation"
 				}
 			]
 		}
 	},
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.89.0",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "18.x",
-    "@typescript-eslint/eslint-plugin": "^7.7.1",
-    "@typescript-eslint/parser": "^7.7.1",
-    "eslint": "^8.57.0",
-    "typescript": "^5.4.5",
-    "@vscode/test-cli": "^0.0.9",
-    "@vscode/test-electron": "^2.3.9"
-  }
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.89.0",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@typescript-eslint/eslint-plugin": "^7.7.1",
+		"@typescript-eslint/parser": "^7.7.1",
+		"eslint": "^8.57.0",
+		"typescript": "^5.4.5",
+		"@vscode/test-cli": "^0.0.9",
+		"@vscode/test-electron": "^2.3.9"
+	}
 }
